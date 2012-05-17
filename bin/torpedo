@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 
-var program = require('commander');
-var colors = require('colors');
-var growl = require('growl');
 var torpedo = require('..');
 var bundler = require('../lib/bundler');
-
+var program = require('commander');
+var mkdirp = require('mkdirp');
+var colors = require('colors');
+var growl = require('growl');
 var http = require('http');
 var up = require('up');
 
 require('date-utils');
 var __slice = [].slice;
+
+var images = {
+  info: __dirname + '/../images/ok.png',
+  error: __dirname + '/../images/error.png'
+};
 
 colors.setTheme({
   verbose: 'cyan',
@@ -23,13 +28,16 @@ colors.setTheme({
   error: 'red'
 });
 
-program
-  .version(torpedo.version)
-  .usage('[options] <file>')
-  .option('-p, --port <port>', 'Port to listen on.', 3000)
-  .option('-w, --watch', 'Watch the module directory for changes.');
+program.version(torpedo.version, '-v, --version').usage('[options] <command>');
 
-program.command('build <file>').description('Create a bundle from every required JS file.').action(function(file) {
+program.command('new <name>').description('create a new project with the specified name').action(function(name) {
+  mkdirp(name, function(err) {
+    if (err) error(err)
+    else info('new project created', true);
+  });
+});
+
+program.command('build <file>').description('create a bundle from every required JS file').action(function(file) {
   var out = 'public/js/torpedo.js';
   info('Bulding ...')
   bundler.bundle(file, out, function() {
@@ -37,23 +45,34 @@ program.command('build <file>').description('Create a bundle from every required
   });
 });
 
+program.command('watch [--server]').description('watch for changes and rebuild when needed').action(function() {
+
+});
+
 program.parse(process.argv);
 
-function info (msg, notify) {
+function info(msg, notify) {
   var date = new Date().toFormat('HH24:MI:SS');
   console.log(date.data, 'info'.info + ':', msg);
   if (notify) {
-    growl(msg);
+    growl(msg, {
+      title: 'Torpedo',
+      image: images.info
+    });
   }
 };
 
-function error (msg) {
+function error(msg) {
   console.error('error'.error + ':', msg);
   process.exit(1);
 };
 
 if (!program.args.length) {
   console.log(program.helpInformation());
+};
+
+function image(name) {
+  return __dirname + '/../images/' + name + '.png';
 };
 
 /*

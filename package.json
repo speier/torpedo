@@ -17,6 +17,7 @@
     "browserify": "~1.10.12",
     "date-utils": "~1.2.10",
     "commander": "~0.6.0",
+    "mkdirp": "~0.3.2",
     "colors": "~0.6.0-1",
     "growl": "~1.5.1",
     "up": "https://github.com/LearnBoost/up/tarball/master"

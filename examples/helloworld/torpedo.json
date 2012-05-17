@@ -1,0 +1,12 @@
+{
+  "main": "app", // default: index.js?
+  "models": "models",
+  "views": "views",
+  "templates": "views/templates",
+  "styles": "styles",
+  "vendor": {
+    "js": ["vendor/js/jquery-1.7.2.js"],
+    "css": [""]
+  },
+  "static": "public"
+}

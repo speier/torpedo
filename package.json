@@ -1,0 +1,28 @@
+{
+  "name": "torpedo",
+  "version": "0.1.0",
+  "homepage": "http://github.com/speier/torpedo",
+  "description": "Simple framework for building modern web applications.",
+  "author": "Kalman Speier <kalman.speier@gmail.com>",
+  "bin": {
+    "torpedo": "./bin/torpedo"
+  },
+  "main": "index",
+  "browserify": "./lib/torpedo",
+  "preferGlobal": true,
+  "dependencies": {
+    "express": "~2.5.9",
+    "async": "~0.1.18",
+    "detective": "~0.1.1",
+    "browserify": "~1.10.12",
+    "date-utils": "~1.2.10",
+    "commander": "~0.6.0",
+    "colors": "~0.6.0-1",
+    "growl": "~1.5.1",
+    "up": "https://github.com/LearnBoost/up/tarball/master"
+  },
+  "devDependencies": {
+    "mocha": "~1.0.3",
+    "expect.js": "~0.1.2"
+  }
+}

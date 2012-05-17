@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var colors = require('colors');
+var growl = require('growl');
+var torpedo = require('..');
+var bundler = require('../lib/bundler');
+
+var http = require('http');
+var up = require('up');
+
+require('date-utils');
+var __slice = [].slice;
+
+colors.setTheme({
+  verbose: 'cyan',
+  prompt: 'grey',
+  info: 'green',
+  data: 'grey',
+  help: 'cyan',
+  warn: 'yellow',
+  debug: 'blue',
+  error: 'red'
+});
+
+program
+  .version(torpedo.version)
+  .usage('[options] <file>')
+  .option('-p, --port <port>', 'Port to listen on.', 3000)
+  .option('-w, --watch', 'Watch the module directory for changes.');
+
+program.command('build <file>').description('Create a bundle from every required JS file.').action(function(file) {
+  var out = 'public/js/torpedo.js';
+  info('Bulding ...')
+  bundler.bundle(file, out, function() {
+    info('Build done.', true);
+  });
+});
+
+program.parse(process.argv);
+
+function info (msg, notify) {
+  var date = new Date().toFormat('HH24:MI:SS');
+  console.log(date.data, 'info'.info + ':', msg);
+  if (notify) {
+    growl(msg);
+  }
+};
+
+function error (msg) {
+  console.error('error'.error + ':', msg);
+  process.exit(1);
+};
+
+if (!program.args.length) {
+  console.log(program.helpInformation());
+};
+
+/*
+console.log('starting cluster with %d workers on port %d', 1, program.port);
+console.log('ctrl + r to load new code'.grey, process.pid);
+
+var file = program.args[0];
+if ('/' != file[0]) file = process.cwd() + '/' + file;
+
+var httpServer = http.Server().listen(program.port);
+var srv = up(httpServer, file);
+*/

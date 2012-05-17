@@ -1,13 +1,7 @@
-var expect = require('expect.js');
+var torpedo = require('..');
 
-function add (a, b) { return a + b; };
-
-describe('test suite', function () {
-  it('should expose a function', function () {
-    expect(add).to.be.a('function');
-  });
-
-  it('should do math', function () {
-    expect(add(1, 3)).to.equal(4);
+describe('torpedo lib test suite', function() {
+  it('should have semver', function() {
+    torpedo.version.should.match(/^\d+\.\d+\.\d+$/);
   });
 });

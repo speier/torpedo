@@ -1,4 +1,4 @@
-torpedo [![build status](https://secure.travis-ci.org/speier/torpedo.png)](http://travis-ci.org/speier/torpedo)
+torpedo [![Build Status](https://secure.travis-ci.org/speier/torpedo.png?branch=master)](http://travis-ci.org/speier/torpedo)
 =======
 
 Simple framework for building modern web applications.

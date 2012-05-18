@@ -1,0 +1,8 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "dependencies": {
+    "torpedo": "~0.1.0",
+    "express": "~2.5.9"
+  }
+}

@@ -1,14 +1,30 @@
 {
   "name": "torpedo",
   "version": "0.1.0",
-  "homepage": "http://github.com/speier/torpedo",
+  "homepage": "http://torpedojs.com/",
   "description": "Simple framework for building modern web applications.",
   "author": "Kalman Speier <kalman.speier@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/speier/torpedo.git"
+  },
+  "bugs": {
+    "url": "http://github.com/speier/torpedo/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/speier/torpedo/raw/master/LICENSE"
+    }
+  ],
+  "main": "index",
   "bin": {
     "torpedo": "./bin/torpedo"
   },
-  "main": "index",
   "browserify": "./lib/torpedo",
+  "engines": {
+    "node": "~0.6.10 || 0.7 || 0.8"
+  },
   "preferGlobal": true,
   "dependencies": {
     "express": "~2.5.9",
@@ -18,6 +34,7 @@
     "date-utils": "~1.2.10",
     "commander": "~0.6.0",
     "mkdirp": "~0.3.2",
+    "ncp": "~0.2.6",
     "colors": "~0.6.0-1",
     "growl": "~1.5.1",
     "up": "https://github.com/LearnBoost/up/tarball/master"

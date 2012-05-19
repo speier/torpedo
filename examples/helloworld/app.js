@@ -19,7 +19,6 @@ app.get('/', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-  // get data/model and render mustache template (should be the same mechanish on server and client)  
   res.render('admin', {
     title: 'Admin'
   });
@@ -29,10 +28,3 @@ app.get('/user/:id?', function(req, res) {
   console.log(req);
   res.send('user id ' + req.params.id);
 });
-
-function getData(req) {
-  // get data/model abstraction layer/method dummy for future  
-  return {
-    title: 'App'
-  };
-}

@@ -1,1 +1,1 @@
-@node ..\..\bin\torpedo %*
+@node ../../bin/torpedo %*

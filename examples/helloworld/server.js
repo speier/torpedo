@@ -1,15 +1,12 @@
 var express = require('express');
-var exhogan = require('./exhogan');
-
 var app = require('./app');
 
 var server = module.exports = express.createServer();
 
 server.configure(function() {
-  server.set('views', __dirname + '/views');
-  server.register('mustache', exhogan);
-  server.set('view engine', 'mustache');
-  //server.set('view engine', 'jade');
+  server.register('html', require('../../plugins/hogan'));
+  server.set('view engine', 'html');
+  server.set('views', __dirname + '/views/templates');
   server.use(express.bodyParser());
   server.use(express.methodOverride());
   server.use(app.router);

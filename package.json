@@ -1,37 +1,33 @@
 {
   "name": "torpedo",
-  "version": "0.1.0",
-  "homepage": "http://torpedojs.com/",
   "description": "Simple framework for building modern web applications.",
+  "keywords": [
+    "torpedo",
+    "framework",
+    "express",
+    "backbone"
+  ],
+  "version": "0.1.0",
+  "preferGlobal": true,
+  "homepage": "http://torpedojs.com/",
   "author": "Kalman Speier <kalman.speier@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/speier/torpedo.git"
+    "url": "https://github.com/speier/torpedo"
   },
   "bugs": {
     "url": "http://github.com/speier/torpedo/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/speier/torpedo/raw/master/LICENSE"
-    }
-  ],
-  "main": "index",
+  "main": "./index",
   "bin": {
     "torpedo": "./bin/torpedo"
   },
-  "browserify": "./lib/torpedo",
-  "engines": {
-    "node": "~0.6.10 || 0.7 || 0.8"
-  },
-  "preferGlobal": true,
   "dependencies": {
     "express": "~2.5.9",
-    "async": "~0.1.18",
+    "hogan.js": "~2.0.0",
+    "commander": "~0.6.0",
     "detective": "~0.1.1",
     "browserify": "~1.10.12",
-    "commander": "~0.6.0",
     "mkdirp": "~0.3.2",
     "ncp": "~0.2.6",
     "colors": "~0.6.0-1",
@@ -42,7 +38,16 @@
     "mocha": "~1.0.3",
     "should": "~0.6.3"
   },
+  "engines": {
+    "node": "0.6 || 0.7 || 0.8"
+  },
   "scripts": {
     "test": "mocha"
-  }
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/speier/torpedo/raw/master/LICENSE"
+    }
+  ]
 }

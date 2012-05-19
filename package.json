@@ -31,7 +31,6 @@
     "async": "~0.1.18",
     "detective": "~0.1.1",
     "browserify": "~1.10.12",
-    "date-utils": "~1.2.10",
     "commander": "~0.6.0",
     "mkdirp": "~0.3.2",
     "ncp": "~0.2.6",

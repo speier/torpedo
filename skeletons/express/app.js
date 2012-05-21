@@ -1,4 +1,4 @@
-var torpedo = require('../..');
+var torpedo = require('torpedo');
 
 var app = module.exports = torpedo.createApp();
 

@@ -35,7 +35,7 @@ function updateProjectInfo(name) {
   pkg.name = path.basename(name);
   fs.writeFileSync(path.join(name, 'package.json'), JSON.stringify(pkg, null, 2));
   // update readme.md ..
-  var readme = fs.readFileSync(path.join(name, 'README.md'), 'utf-8');
+  var readme = fs.readFileSync(path.join(name, 'readme.md'), 'utf-8');
   readme = readme.replace(/application-name/gi, pkg.name);
   fs.writeFileSync(path.join(name, 'readme.md'), readme);
   // log info ..

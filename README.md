@@ -1,6 +1,6 @@
-# torpedo [![Build Status](https://secure.travis-ci.org/speier/torpedo.png?branch=master)](http://travis-ci.org/speier/torpedo)
+# Torpedo
 
-Simple framework for building modern web applications.
+Simple framework for building modern web applications. [![Build Status](https://secure.travis-ci.org/speier/torpedo.png?branch=master)](http://travis-ci.org/speier/torpedo)
 
 ## Installation
 
@@ -29,8 +29,8 @@ Start the server:
 
 ## Features
 
-  * Use the same application and routing on the client and the server
-  * Robust routing based on Express
+  * Application run in both node.js and the browser
+  * Use the same Express based router on the server and client
   * Client side routing history supports HTML5 Push States
   * Reuse the same templates on the client and the server
 

@@ -12,7 +12,7 @@ The quickest way to get started is to utilize the executable `torpedo` to genera
 
 Create a new application:
 
-    $ torpedo myapp
+    $ torpedo new myapp
     $ cd myapp
 
 Install dependencies:

@@ -1,13 +1,12 @@
 var express = require('express');
-var cons = require('consolidate');
 var app = require('./app');
 
 var server = module.exports = express.createServer();
 
 server.configure(function() {
-  server.register('html', cons.hogan);
+  server.register('html', require('../../plugins/hogan'));
   server.set('view engine', 'html');
-  server.set('views', __dirname + '/views');
+  server.set('views', __dirname + '/views/templates');
   server.use(express.bodyParser());
   server.use(express.methodOverride());
   server.use(app.router);

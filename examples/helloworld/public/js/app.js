@@ -206,163 +206,6 @@ if (!process.cwd) process.cwd = function () { return '.' };
 if (!process.env) process.env = {};
 if (!process.argv) process.argv = [];
 
-require.define("d:\\Dropbox\\Dev\\torpedo\\examples\\helloworld\\app", function (require, module, exports, __dirname, __filename) {
-var torpedo = require('../..');
-
-var app = module.exports = torpedo.createApp();
-
-//app.register('mustache', exhogan);
-app.set('view engine', 'mustache');
-app.set('views', __dirname + '/views');
-
-app.set('vendor', {
-  root: __dirname + '/vendor',
-  js: ['js/jquery-1.7.2.js', 'js/underscore-1.3.1.js', 'js/backbone-0.9.2.js', 'js/bootstrap.js'],
-  css: []
-});
-
-app.get('/', function(req, res) {
-  res.render('index', {
-    title: 'Home'
-  });
-});
-
-app.get('/admin', function(req, res) {
-  res.render('admin', {
-    title: 'Admin'
-  });
-});
-
-app.get('/user/:id?', function(req, res) {
-  console.log(req);
-  res.send('user id ' + req.params.id);
-});
-
-});
-require.define("../..", function (require, module, exports, __dirname, __filename) {
-module.exports = require('./lib/torpedo');
-
-});
-require.define("./lib/torpedo", function (require, module, exports, __dirname, __filename) {
-var Application = require('./application');
-
-exports.version = require(__dirname + '/../package').version;
-
-exports.createApp = function(options) {
-  if ('object' == typeof options) {
-    return new Application(options, Array.prototype.slice.call(arguments, 1));
-  } else {
-    return new Application(Array.prototype.slice.call(arguments));
-  }
-}
-
-});
-require.define("./application", function (require, module, exports, __dirname, __filename) {
-var fs = require('fs');
-var path = require('path');
-var history = require('./history');
-var router = require('./router');
-var toArray = require('express/lib/utils').toArray;
-
-//var hogan = require('hogan.js');
-
-var methods = router.methods.concat('del', 'all');
-
-exports = module.exports = Application;
-var app = Application.prototype;
-
-function Application(options) {
-  this.init(options);
-};
-
-app.settings = {};
-
-app.init = function(options) {
-  var self = this;
-  this.history = new history(this);
-  this.routes = new router(this);
-  this.__defineGetter__('router', function() {
-    this.__usedRouter = true;
-    return self.routes.middleware;
-  });
-  this.enabled = function() {
-    return false;
-  };
-};
-
-app.set = function(setting, val) {
-  if (val === undefined) {
-    if (app.settings.hasOwnProperty(setting)) {
-      return app.settings[setting];
-    } else if (app.parent) {
-      return app.parent.set(setting);
-    }
-  } else {
-    app.settings[setting] = val;
-    return app;
-  }
-};
-
-/*app.bundler = function(bundle) {
-  app._bundleVendor(bundle, app.set('vendor'));
-  app._bundleViews(bundle, app.set('views'));
-  app._bundleTemplates(bundle, app.set('templates') || (app.set('views') + '/templates'));
-};
-
-app._bundleVendor = function(bundle, vendor) {
-  vendor.js.reverse();
-  vendor.js.forEach(function(js) {
-    var p = path.join(vendor.root, js);
-    bundle.prepend(fs.readFileSync(p, 'utf-8'));
-  });
-};
-
-app._bundleViews = function(bundle, dir) {
-  if (typeof fs.readdirSync != 'undefined') {
-    fs.readdirSync(dir).forEach(function(p) {
-      p = path.join(dir, p);
-      if (fs.statSync(p).isDirectory()) {
-        app._bundleViews(bundle, p);
-      } else if (p.match(/\.js$|\.coffee$/)) {
-        var name = path.basename(path.relative(app.set('views'), p), path.extname(p));
-        bundle.append('require.define("views/' + name + '", function (require, module, exports, __dirname, __filename) {\n' + fs.readFileSync(p, 'utf-8') + '\n});');
-      }
-    })
-  }
-};
-
-app._bundleTemplates = function(bundle, dir) {
-  if (typeof fs.readdirSync != 'undefined') {
-    fs.readdirSync(dir).forEach(function(p) {
-      p = path.join(dir, p);
-      if (fs.statSync(p).isDirectory()) {
-        app._bundleTemplates(bundle, p);
-      } else if (path.extname(p) === '.' + app.set('view engine')) {
-        var name = path.basename(path.relative(app.set('views'), p), path.extname(p));
-        var content = hogan.compile(fs.readFileSync(p, 'utf-8'), {
-          asString: true
-        });
-        var module = "module.exports = new Hogan.Template(" + content + ");";
-        bundle.append('require.define("templates/' + name + '", function (require, module, exports, __dirname, __filename) {\n' + module + '\n});');
-        bundle.prepend(fs.readFileSync(path.join(__dirname, '..', '..', 'node_modules', 'hogan.js', 'web', 'builds', '2.0.0', 'template-2.0.0.js')));
-      }
-    })
-  }
-};*/
-
-methods.forEach(function(method) {
-  app[method] = function(path) {
-    if (1 == arguments.length) return this.routes.lookup(method, path);
-    var args = [method].concat(toArray(arguments));
-    return this.routes._route.apply(this.routes, args);
-  }
-});
-
-});
-require.define("fs", function (require, module, exports, __dirname, __filename) {
-// nothing to see here... no file methods for the browser
-
-});
 require.define("path", function (require, module, exports, __dirname, __filename) {
 function filter (xs, fn) {
     var res = [];
@@ -498,6 +341,187 @@ exports.basename = function(path, ext) {
 exports.extname = function(path) {
   return splitPathRe.exec(path)[3] || '';
 };
+
+});
+
+require.define("../..", function (require, module, exports, __dirname, __filename) {
+module.exports = require('./lib/torpedo');
+
+});
+require.define("./lib/torpedo", function (require, module, exports, __dirname, __filename) {
+var Application = require('./application');
+
+exports.version = require('../package').version;
+
+exports.createApp = function(options) {
+  if ('object' == typeof options) {
+    return new Application(options, Array.prototype.slice.call(arguments, 1));
+  } else {
+    return new Application(Array.prototype.slice.call(arguments));
+  }
+}
+
+});
+require.define("./application", function (require, module, exports, __dirname, __filename) {
+var fs = require('fs');
+var path = require('path');
+var history = require('./history');
+var router = require('./router');
+var toArray = require('express/lib/utils').toArray;
+
+//var hogan = require('hogan.js');
+
+var methods = router.methods.concat('del', 'all');
+
+exports = module.exports = Application;
+var app = Application.prototype;
+
+function Application(options) {
+  this.init(options);
+};
+
+app.settings = {};
+
+app.init = function(options) {
+  var self = this;
+  this.history = new history(this);
+  this.routes = new router(this);
+  this.__defineGetter__('router', function() {
+    this.__usedRouter = true;
+    return self.routes.middleware;
+  });
+  this.enabled = function() {
+    return false;
+  };
+};
+
+app.set = function(setting, val) {
+  if (val === undefined) {
+    if (app.settings.hasOwnProperty(setting)) {
+      return app.settings[setting];
+    } else if (app.parent) {
+      return app.parent.set(setting);
+    }
+  } else {
+    app.settings[setting] = val;
+    return app;
+  }
+};
+
+/*app.bundler = function(bundle) {
+  app._bundleVendor(bundle, app.set('vendor'));
+  app._bundleViews(bundle, app.set('views'));
+  app._bundleTemplates(bundle, app.set('templates') || (app.set('views') + '/templates'));
+};
+
+app._bundleVendor = function(bundle, vendor) {
+  vendor.js.reverse();
+  vendor.js.forEach(function(js) {
+    var p = path.join(vendor.root, js);
+    bundle.prepend(fs.readFileSync(p, 'utf-8'));
+  });
+};
+
+app._bundleViews = function(bundle, dir) {
+  if (typeof fs.readdirSync != 'undefined') {
+    fs.readdirSync(dir).forEach(function(p) {
+      p = path.join(dir, p);
+      if (fs.statSync(p).isDirectory()) {
+        app._bundleViews(bundle, p);
+      } else if (p.match(/\.js$|\.coffee$/)) {
+        var name = path.basename(path.relative(app.set('views'), p), path.extname(p));
+        bundle.append('require.define("views/' + name + '", function (require, module, exports, __dirname, __filename) {\n' + fs.readFileSync(p, 'utf-8') + '\n});');
+      }
+    })
+  }
+};
+
+app._bundleTemplates = function(bundle, dir) {
+  if (typeof fs.readdirSync != 'undefined') {
+    fs.readdirSync(dir).forEach(function(p) {
+      p = path.join(dir, p);
+      if (fs.statSync(p).isDirectory()) {
+        app._bundleTemplates(bundle, p);
+      } else if (path.extname(p) === '.' + app.set('view engine')) {
+        var name = path.basename(path.relative(app.set('views'), p), path.extname(p));
+        var content = hogan.compile(fs.readFileSync(p, 'utf-8'), {
+          asString: true
+        });
+        var module = "module.exports = new Hogan.Template(" + content + ");";
+        bundle.append('require.define("templates/' + name + '", function (require, module, exports, __dirname, __filename) {\n' + module + '\n});');
+        bundle.prepend(fs.readFileSync(path.join(__dirname, '..', '..', 'node_modules', 'hogan.js', 'web', 'builds', '2.0.0', 'template-2.0.0.js')));
+      }
+    })
+  }
+};*/
+
+methods.forEach(function(method) {
+  app[method] = function(path) {
+    if (1 == arguments.length) return this.routes.lookup(method, path);
+    var args = [method].concat(toArray(arguments));
+    return this.routes._route.apply(this.routes, args);
+  }
+});
+
+});
+require.define("../package", function (require, module, exports, __dirname, __filename) {
+module.exports = {
+  "name": "torpedo",
+  "description": "Simple framework for building modern web applications.",
+  "keywords": [
+    "torpedo",
+    "framework",
+    "express",
+    "backbone"
+  ],
+  "version": "0.1.0",
+  "preferGlobal": true,
+  "homepage": "http://torpedojs.com/",
+  "author": "Kalman Speier <kalman.speier@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/speier/torpedo"
+  },
+  "bugs": {
+    "url": "http://github.com/speier/torpedo/issues"
+  },
+  "main": "./index",
+  "bin": {
+    "torpedo": "./bin/torpedo"
+  },
+  "dependencies": {
+    "express": "~2.5.9",
+    "hogan.js": "~2.0.0",
+    "commander": "~0.6.0",
+    "detective": "~0.1.1",
+    "browserify": "~1.10.12",
+    "mkdirp": "~0.3.2",
+    "ncp": "~0.2.6",
+    "colors": "~0.6.0-1",
+    "growl": "~1.5.1",
+    "up": "https://github.com/LearnBoost/up/tarball/master"
+  },
+  "devDependencies": {
+    "mocha": "~1.0.3",
+    "should": "~0.6.3"
+  },
+  "engines": {
+    "node": "0.6 || 0.7 || 0.8"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/speier/torpedo/raw/master/LICENSE"
+    }
+  ]
+}
+
+});
+require.define("fs", function (require, module, exports, __dirname, __filename) {
+// nothing to see here... no file methods for the browser
 
 });
 require.define("./history", function (require, module, exports, __dirname, __filename) {
@@ -1203,9 +1227,7 @@ function normalize(path, keys, sensitive, strict) {
     })
     .replace(/([\/.])/g, '\\$1')
     .replace(/\*/g, '(.*)');
-  return new RegExp('^' + path + '
-});
-, sensitive ? '' : 'i');
+  return new RegExp('^' + path + '$', sensitive ? '' : 'i');
 }
 
 });
@@ -2362,3 +2384,38 @@ function lastBraceInKey(str) {
 }
 
 });
+
+require.define("app", function (require, module, exports, __dirname, __filename) {
+    var torpedo = require('../..');
+
+var app = module.exports = torpedo.createApp();
+
+//app.register('mustache', exhogan);
+app.set('view engine', 'mustache');
+app.set('views', __dirname + '/views');
+
+app.set('vendor', {
+  root: __dirname + '/vendor',
+  js: ['js/jquery-1.7.2.js', 'js/underscore-1.3.1.js', 'js/backbone-0.9.2.js', 'js/bootstrap.js'],
+  css: []
+});
+
+app.get('/', function(req, res) {
+  res.render('index', {
+    title: 'Home'
+  });
+});
+
+app.get('/admin', function(req, res) {
+  res.render('admin', {
+    title: 'Admin'
+  });
+});
+
+app.get('/user/:id?', function(req, res) {
+  console.log(req);
+  res.send('user id ' + req.params.id);
+});
+
+});
+require("app");

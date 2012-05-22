@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+var server = require('../server');
+
+server.listen(process.env.PORT || 3000, function() {
+  console.log("server has started on port %d in %s mode", server.address().port, server.settings.env);
+});

@@ -1,7 +1,7 @@
 {
   "main": "app",
   "views": "views",
-  "styles": ["styles/app.css", "styles/abc.less"],
+  "styles": ["styles/app.css", "styles/base.less"],
   "templates": {
     "dir": "views/templates",
     "ext": "html",
@@ -13,6 +13,6 @@
   },
   "output": {
     "js": "public/js/app.js",
-    "css": "public/css/styles.css"
+    "css": "public/css/app.css"
   }
 }

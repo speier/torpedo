@@ -8,7 +8,6 @@
     "backbone"
   ],
   "version": "0.1.0",
-  "preferGlobal": true,
   "homepage": "http://torpedojs.com/",
   "author": "Kalman Speier <kalman.speier@gmail.com>",
   "repository": {
@@ -24,10 +23,11 @@
   },
   "dependencies": {
     "express": "~2.5.9",
-    "hogan.js": "~2.0.0",
     "commander": "~0.6.0",
     "detective": "~0.1.1",
     "browserify": "~1.10.12",
+    "hogan.js": "~2.0.0",
+    "recess": "~1.0.4",
     "mkdirp": "~0.3.2",
     "ncp": "~0.2.6",
     "colors": "~0.6.0-1",

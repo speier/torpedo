@@ -44,6 +44,15 @@ Start development server and Watch for changes:
 $ npm test
 ```
 
+## Development
+
+```
+git clone git://github.com/speier/torpedo.git 
+cd torpedo 
+npm link 
+npm test
+```
+
 ## License 
 
 (The MIT License)

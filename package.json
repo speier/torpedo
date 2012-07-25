@@ -17,25 +17,25 @@
     "torpedo": "./bin/torpedo"
   },
   "dependencies": {
-    "express": "~2.5.9",
-    "async": "~0.1.18",
-    "commander": "~0.6.0",
+    "express": "~3.0.0",
+    "async": "~0.1.22",
+    "commander": "~1.0.0",
     "detective": "~0.1.1",
-    "browserify": "~1.10.12",
+    "browserify": "~1.13.5",
     "hogan.js": "~2.0.0",
-    "recess": "~1.0.4",
-    "mkdirp": "~0.3.2",
+    "recess": "~1.1.4",
+    "mkdirp": "~0.3.3",
     "ncp": "~0.2.6",
     "colors": "~0.6.0-1",
     "growl": "~1.5.1",
-    "up": "https://github.com/LearnBoost/up/tarball/master"
+    "up": "~0.2.2"
   },
   "devDependencies": {
-    "mocha": "~1.0.3",
-    "should": "~0.6.3"
+    "mocha": ">= 1.0.3",
+    "should": ">= 0.6.3"
   },
   "engines": {
-    "node": "0.6 || 0.7 || 0.8"
+    "node": ">= 0.6.0"
   },
   "scripts": {
     "test": "mocha"

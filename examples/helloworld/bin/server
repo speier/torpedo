@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
+var http = require('http');
 var server = require('../server');
 
-server.listen(process.env.PORT || 3000, function() {
-  console.log("server has started on port %d in %s mode", server.address().port, server.settings.env);
+var httpServer = http.createServer(server);
+
+httpServer.listen(process.env.PORT || 3000, function() {
+  console.log("server has started on port %d in %s mode", httpServer.address().port, server.settings.env);
 });

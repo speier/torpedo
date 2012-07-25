@@ -2,7 +2,7 @@ var express = require('express');
 var cons = require('consolidate');
 var app = require('./app');
 
-var server = module.exports = express.createServer();
+var server = module.exports = express();
 
 server.configure(function() {
   server.engine('html', cons.hogan);

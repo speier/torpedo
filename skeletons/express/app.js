@@ -1,4 +1,4 @@
-var torpedo = require('torpedo');
+var torpedo = require('../..');
 
 var app = module.exports = torpedo.createApp();
 
@@ -15,5 +15,6 @@ app.get('/admin', function(req, res) {
 });
 
 app.get('/user/:id?', function(req, res) {
+  console.log(req);
   res.send('user id ' + req.params.id);
 });

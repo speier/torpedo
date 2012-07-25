@@ -1,10 +1,11 @@
 var express = require('express');
+var cons = require('consolidate');
 var app = require('./app');
 
-var server = module.exports = express.createServer();
+var server = module.exports = express();
 
 server.configure(function() {
-  server.register('html', require('torpedo/plugins/hogan'));
+  server.engine('html', cons.hogan);
   server.set('view engine', 'html');
   server.set('views', __dirname + '/views/templates');
   server.use(express.bodyParser());
